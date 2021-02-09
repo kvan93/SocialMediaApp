@@ -1,1 +1,16 @@
-<h1>{{title}}</h1>
+<div class="container-lg">
+  <div class="row">
+    <div class="col">
+      <h1 class="mt-5">{{title}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul class="list-group">
+        <li *ngFor="let user of users" class="list-group-item">{{user.id}} - {{user.userName}}</li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>
