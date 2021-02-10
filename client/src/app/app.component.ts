@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from './users.service';
+import { AccountService } from './_services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
 
   title = 'Social Media App';
   users: any;
-  constructor(private _userService:UsersService) {
+  constructor(private _accountService:AccountService) {
 
   }
 
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   }
 
   getUsers(){
-    this._userService.getUsers().subscribe(response => {
+    this._accountService.getUsers().subscribe(response => {
       this.users = response;
     }, error => {
       console.error(error);
