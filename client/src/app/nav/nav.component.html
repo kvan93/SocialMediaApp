@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-lg">
-    <a class="navbar-brand" href="#">Social Media App</a>
+  <div class="container-lg d-flex justify-content-end">
+    <a class="navbar-brand" href="#">Esports Gamer Hub</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse mx-auto" id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0" *ngIf="loggedIn">
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0" *ngIf="accountService.currentUser$ | async">
         <li class="nav-item">
           <a class="nav-link"  href="#">Friend Matches</a>
         </li>
@@ -15,20 +15,18 @@
         <li class="nav-item">
           <a class="nav-link" href="#" >Messages</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" (click)="logout()" >Logout</a>
-        </li>
       </ul>
 
-      <div class="dropdown" *ngIf="loggedIn">
-        <a class="dropdown-toggle text-light">Welcome user</a>
-        <div class="dropdown-menu">
+      <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
+        <a class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+        <div class="dropdown-menu mt-3" *dropdownMenu>
           <a class="dropdown-item"> Edit Profile</a>
+          <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="logout()"> Logout</a>
         </div>
       </div>
 
-      <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off" *ngIf="!loggedIn">
+      <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off" *ngIf="(accountService.currentUser$ | async) === null">
         <input name="username" [(ngModel)]="model.username" class="form-control mr-2" type="search" placeholder="Username">
         <input name="password" [(ngModel)]="model.password" class="form-control mr-2" type="password" placeholder="Password">
         <button class="btn btn-outline-success" type="submit">Login</button>

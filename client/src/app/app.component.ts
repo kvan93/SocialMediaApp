@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
 
 @Component({
@@ -15,16 +16,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){
-   this.getUsers()
+   this.setCurrentUser();
   }
 
-  getUsers(){
-    this._accountService.getUsers().subscribe(response => {
-      this.users = response;
-    }, error => {
-      console.error(error);
-    })
+  setCurrentUser(){
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    this._accountService.setCurrentUser(user);
   }
+
 
 
 }
